@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>WinCC Alarme</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+    <title>Web Socket Sample</title>
+    <script type="text/javascript">
+        let socket = new WebSocket("ws://194.56.189.167/api/alarm/");
+
+        socket.onopen = function (e) {
+            //alert("[open] Connection established");
+
+        };
+
+        socket.onmessage = function (event) {
+
+            var tbl = document.getElementById("table1");
+            try {
+                tbl.remove();
+            }
+            catch (err) {
+                console.log("Tabelle nicht vorhanden")
+            }
+
+            var prop = JSON.parse(event.data);
+
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+            table.setAttribute("id", "table1");
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            var tr = table.insertRow(-1);                   // TABLE ROW.
+            var th = document.createElement("th");      // TABLE HEADER.
+            th.innerHTML = "Date";
+            tr.appendChild(th);
+
+            var th = document.createElement("th");      // TABLE HEADER.
+            th.innerHTML = "Time";
+            tr.appendChild(th);
+
+            var th = document.createElement("th");      // TABLE HEADER.
+            th.innerHTML = "Number";
+            tr.appendChild(th);
+            var th = document.createElement("th");      // TABLE HEADER.
+            th.innerHTML = "Message";
+            tr.appendChild(th);
+
+            $.each(prop, function (key, value) {
+                console.log(key);
+                console.log(value);
+
+                var date = new Date (value.Time);
+                console.log(date.toLocaleTimeString());
+                console.log(date.toLocaleDateString());
+
+                tr = table.insertRow(-1);
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = date.toLocaleDateString();
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = date.toLocaleTimeString();
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = value.ConditionName;
+                var tabCell = tr.insertCell(-1);
+                tabCell.innerHTML = value.Message;
+
+                // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                var divContainer = document.getElementById("showData");
+                divContainer.innerHTML = "";
+                divContainer.appendChild(table);
+
+
+            });
+
+            //alert(`[message] Data received from server: ${prop}`);
+
+        };
+
+        socket.onclose = function (event) {
+            if (event.wasClean) {
+                alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                // e.g. server process killed or network down
+                // event.code is usually 1006 in this case
+                alert('[close] Connection died');
+            }
+        };
+        socket.onerror = function (error) {
+            alert(`[error] ${error.message}`);
+        };
+    </script>
+</head>
+<body>
+    <br>
+    <p id="showData"></p>
+    <br>
+</body>
+
+
+
+
