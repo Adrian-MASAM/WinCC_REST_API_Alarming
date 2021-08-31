@@ -9,7 +9,6 @@ namespace WinCC_REST_API.Controllers
 {
     public class ViewController : Controller
     {
-        // GET: websocketView
         public ActionResult Alarme()
         {
             return View();

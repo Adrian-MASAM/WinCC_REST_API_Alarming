@@ -71,7 +71,6 @@ namespace WinCC_REST_API.Controllers
         {
             webSocketColl.Add(this);
             webSocketColl.Broadcast(JsonConvert.SerializeObject(Init._alarms.Values));
-            //webSocketColl.Broadcast("");
         }
 
         public override void OnClose()

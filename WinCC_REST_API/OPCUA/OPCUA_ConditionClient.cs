@@ -22,8 +22,6 @@ namespace WinCC_REST_API.OPCUA
         {
             UAEndpointDescriptor endpointDescriptor = Init._endpoint;
 
-            // Instantiate the client object and hook events
-            //var client = new EasyUAClient();
             Init._client.EventNotification += Client_EventNotification;
 
             Debug.WriteLine("Subscribing...{0}", UABaseEventObject.Operands.NodeId.ToString());
@@ -145,7 +143,7 @@ namespace WinCC_REST_API.OPCUA
                 }
                 if (item.Value == null)
                 {
-                    item.SetValue("no Value from the Server");
+                    item.SetValue("N.A.");
                 }
             }
             Alarm alarm = new Alarm
@@ -230,23 +228,23 @@ namespace WinCC_REST_API.OPCUA
             };
             dateTime = e.EventData.BaseEvent.Time;
 
-            Log.Information("NEUES EVENT:\r\n***********************************" + JsonConvert.SerializeObject(alarm));
+            Log.Information("NEUER EVENT:\r\n***********************************" + JsonConvert.SerializeObject(alarm));
 
 
-            if (filterEventType == null)
+            if (Init._filterEventType == null)
             {
                 return;
             }
-            if (filterConditionType == null)
+            if (Init._filterConditionType == null)
             {
                 return;
             }
 
-            if (alarm.EventType.EndsWith("ns=2;i=53") && filterEventType == "true")
+            if (alarm.EventType.EndsWith("ns=2;i=53") && Init._filterEventType == "true")
             {
                 return;//Events gefiltert
             }
-            else if (alarm.EventType.EndsWith("ns=2;i=1") && filterConditionType == "true")
+            else if (alarm.EventType.EndsWith("ns=2;i=1") && Init._filterConditionType == "true")
             {
                 return;//Condition gefiltert
             }
@@ -264,7 +262,7 @@ namespace WinCC_REST_API.OPCUA
                 {
                     alarm.State = ((int)Meldestatus.MSG_STATE_GO).ToString();
                 }
-                else //(alarmlist.AckedState == "Acknowledged" && alarmlist.ActiveState == "Inactive")//dispose
+                else //dispose
                 {
                     alarm.State = ((int)Meldestatus.MSG_STATE_GONE).ToString();
                 }
@@ -274,7 +272,6 @@ namespace WinCC_REST_API.OPCUA
             {
                 try
                 {
-                    //RTController.AlarmNotifier(alarmlist);
                     Init._alarms.Add(
                     alarm.ConditionName, //Alarmnummer als ID für Dictionary
                     alarm
@@ -293,7 +290,17 @@ namespace WinCC_REST_API.OPCUA
                 Init._alarms.Remove(alarm.ConditionName);
                 Log.Information("Alarm mit Nummer <" + alarm.ConditionName + "> aus Liste entfernt (gegangen)");
             }
-            WSHandler.AlarmNotifier(JsonConvert.SerializeObject(Init._alarms.Values));
+
+            if (Init._websocketTransmit == null)
+            {
+                return;
+            }
+
+            if (Init._filterEventType == "true")
+            {
+                WSHandler.AlarmNotifier(JsonConvert.SerializeObject(Init._alarms.Values));
+            }
+            
 
             DateTime dateTimenow = DateTime.UtcNow;
             Log.Information("Differenz Zeit in ms: " + dateTimenow.Subtract(dateTime).TotalMilliseconds);

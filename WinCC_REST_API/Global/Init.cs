@@ -17,7 +17,9 @@ namespace WinCC_REST_API.Global
         public static readonly IEasyUAAlarmsAndConditionsClient _alarmsAndConditionsClient = Init._client.AsAlarmsAndConditionsClient();
         public static Dictionary<string, Alarm> _alarms = new Dictionary<string, Alarm>();
         public static string _endpoint { get; set; }
-        public static string _deployedIP { get; set; }
+        public static string _filterEventType { get; set; }
+        public static string _filterConditionType { get; set; }
+        public static string _websocketTransmit { get; set; }
         public static bool _stateIO;
         
 
@@ -33,50 +35,42 @@ namespace WinCC_REST_API.Global
                 .CreateLogger();
             Log.Information("Logging initialized");
 
-            #region Lizenzierung (Aus Code-Examples OPC-Labs)
-            // Register a license that is we embed as a managed resource in this program.
-
-            // The first two arguments should always be "QuickOPC" and "Multipurpose".
-            // The third argument determines the assembly where the license resides.
-            // The fourth argument is the namespace-qualified name of the managed resource.
-            LicensingManagement.Instance.RegisterManagedResource("QuickOPC", "Multipurpose",
-                Assembly.GetExecutingAssembly(),
-                "WinCC_REST_API.Global.DEC-PO-208016.bin");
-
-            // Instantiate the client object, obtain the serial number from the license info, and display the serial number.
-            long serialNumber = (uint)_client.LicenseInfo["Multipurpose.SerialNumber"];
-            Log.Information("SerialNumber: {0}", serialNumber);
-
-            #endregion
-
-            if (ConfigurationManager.AppSettings["deployedIP"] != null)
+            if (ConfigurationManager.AppSettings["websocketTransmit"] != null)
             {
-                Init._deployedIP = ConfigurationManager.AppSettings["deployedIP"];
-                Debug.WriteLine("deployedIP: {0}", Init._deployedIP);
+                Init._websocketTransmit = ConfigurationManager.AppSettings["websocketTransmit"];
+                Log.Information("websocketTransmit: {0}", Init._websocketTransmit);
             }
             else
             {
-                Debug.WriteLine("deployedIP not valid");
+                Log.Error("websocketTransmit not valid");
             }
             if (ConfigurationManager.AppSettings["endpointDescriptor"] != null)
             {
                 Init._endpoint = ConfigurationManager.AppSettings["endpointDescriptor"];
-                Debug.WriteLine("Endpoint: {0}", Init._endpoint);
+                Log.Information("Endpoint: {0}", Init._endpoint);
             }
             else
             {
-                Debug.WriteLine("Endpoint not valid");
+                Log.Error("Endpoint not valid");
             }
-            /*
-            _alarms.Add("1234",
-            new Alarmlist()
+            if (ConfigurationManager.AppSettings["filterEventType"] != null)
             {
-                Time = DateTime.Now.ToString(),
-                ConditionName = "1234",
-                Message = "Hallo zusammen"
-                
-            });
-            */
+                Init._endpoint = ConfigurationManager.AppSettings["filterEventType"];
+                Log.Information("filterEventType: {0}", Init._filterEventType);
+            }
+            else
+            {
+                Log.Error("filterEventType not valid");
+            }
+            if (ConfigurationManager.AppSettings["filterConditionType"] != null)
+            {
+                Init._endpoint = ConfigurationManager.AppSettings["filterConditionType"];
+                Log.Information("filterConditionType: {0}", Init._filterConditionType);
+            }
+            else
+            {
+                Log.Error("filterConditionType not valid");
+            }
         }
     }
 }
