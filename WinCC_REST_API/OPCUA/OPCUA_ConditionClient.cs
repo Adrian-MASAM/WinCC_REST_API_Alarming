@@ -24,7 +24,7 @@ namespace WinCC_REST_API.OPCUA
 
             Init._client.EventNotification += Client_EventNotification;
 
-            Debug.WriteLine("Subscribing...{0}", UABaseEventObject.Operands.NodeId.ToString());
+            Log.Information("Subscribing...{0}", UABaseEventObject.Operands.NodeId.ToString());
             Init._client.SubscribeEvent(
                 endpointDescriptor,
                 UAObjectIds.Server,
@@ -124,9 +124,10 @@ namespace WinCC_REST_API.OPCUA
 
         static void Client_EventNotification(object sender, EasyUAEventNotificationEventArgs e)
         {
-            DateTime dateTime;
-            string filterEventType = ConfigurationManager.AppSettings["filterEventType"];
-            string filterConditionType = ConfigurationManager.AppSettings["filterConditionType"];
+            DateTime dateTime = new DateTime();
+            dateTime = e.EventData.BaseEvent.Time;
+            Log.Information("Alarm Zeit WinCC: ;" + dateTime.ToString("hh:mm:ss.fff"));
+            Log.Information("Alarm Start Web API: ;" + DateTime.UtcNow.ToString("hh:mm:ss.fff"));
 
             if (e.EventData == null)
             {
@@ -146,6 +147,7 @@ namespace WinCC_REST_API.OPCUA
                     item.SetValue("N.A.");
                 }
             }
+
             Alarm alarm = new Alarm
             {
                 AGNR = e.EventData.FieldResults[UAFilterElements.SimpleAttribute("ns=2;i=1", "/AGNR")].Value.ToString(),
@@ -226,7 +228,7 @@ namespace WinCC_REST_API.OPCUA
                 Time = e.EventData.BaseEvent.Time.ToString("r"),
                 USER = e.EventData.FieldResults[UAFilterElements.SimpleAttribute("ns=2;i=1", "/USER")].Value.ToString()
             };
-            dateTime = e.EventData.BaseEvent.Time;
+            
 
             Log.Information("NEUER EVENT:\r\n***********************************" + JsonConvert.SerializeObject(alarm));
 
@@ -276,34 +278,30 @@ namespace WinCC_REST_API.OPCUA
                     alarm.ConditionName, //Alarmnummer als ID für Dictionary
                     alarm
                     );
-                    Log.Information("Alarm mit Nummer: <" + alarm.ConditionName + "> in Liste aufgenommen");
+                    Log.Information("Event mit Nummer: <" + alarm.ConditionName + "> in Liste aufgenommen");
                 }
                 catch (ArgumentException)
                 {
                     Init._alarms[alarm.ConditionName] = alarm;
-                    Log.Information("Alarm mit Nummer <" + alarm.ConditionName + "> bereits vorhanden, aktualisierung aufgrund Zustandsänderung");
+                    Log.Information("Event mit Nummer <" + alarm.ConditionName + "> bereits vorhanden, aktualisierung aufgrund Zustandsänderung");
                 }
 
             }
             else
             {
                 Init._alarms.Remove(alarm.ConditionName);
-                Log.Information("Alarm mit Nummer <" + alarm.ConditionName + "> aus Liste entfernt (gegangen)");
+                Log.Information("Event mit Nummer <" + alarm.ConditionName + "> aus Liste entfernt (gegangen)");
             }
-
+            Log.Information("Alarm Verarbeitet Web API: ;" + DateTime.UtcNow.ToString("hh:mm:ss.fff"));
             if (Init._websocketTransmit == null)
             {
                 return;
             }
 
-            if (Init._filterEventType == "true")
+            if (Init._websocketTransmit == "true")
             {
                 WSHandler.AlarmNotifier(JsonConvert.SerializeObject(Init._alarms.Values));
             }
-            
-
-            DateTime dateTimenow = DateTime.UtcNow;
-            Log.Information("Differenz Zeit in ms: " + dateTimenow.Subtract(dateTime).TotalMilliseconds);
         }
 
         public void InitializeLogServer()

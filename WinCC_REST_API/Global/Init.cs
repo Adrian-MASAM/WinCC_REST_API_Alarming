@@ -44,6 +44,7 @@ namespace WinCC_REST_API.Global
             {
                 Log.Error("websocketTransmit not valid");
             }
+
             if (ConfigurationManager.AppSettings["endpointDescriptor"] != null)
             {
                 Init._endpoint = ConfigurationManager.AppSettings["endpointDescriptor"];
@@ -53,18 +54,20 @@ namespace WinCC_REST_API.Global
             {
                 Log.Error("Endpoint not valid");
             }
+
             if (ConfigurationManager.AppSettings["filterEventType"] != null)
             {
-                Init._endpoint = ConfigurationManager.AppSettings["filterEventType"];
+                Init._filterEventType = ConfigurationManager.AppSettings["filterEventType"];
                 Log.Information("filterEventType: {0}", Init._filterEventType);
             }
             else
             {
                 Log.Error("filterEventType not valid");
             }
+
             if (ConfigurationManager.AppSettings["filterConditionType"] != null)
             {
-                Init._endpoint = ConfigurationManager.AppSettings["filterConditionType"];
+                Init._filterConditionType = ConfigurationManager.AppSettings["filterConditionType"];
                 Log.Information("filterConditionType: {0}", Init._filterConditionType);
             }
             else

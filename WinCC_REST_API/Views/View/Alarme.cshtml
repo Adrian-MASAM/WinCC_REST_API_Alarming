@@ -29,12 +29,14 @@
 
         socket.onmessage = function (event) {
 
+            //Grundstruktur kopiert von https://www.encodedna.com/javascript/populate-json-data-to-html-table-using-javascript.htm 10.07.2021
+
             var tbl = document.getElementById("table1");
             try {
                 tbl.remove();
             }
             catch (err) {
-                console.log("Tabelle nicht vorhanden")
+                console.log("Tabelle nicht vorhanden");
             }
 
             var prop = JSON.parse(event.data);
@@ -63,13 +65,12 @@
             tr.appendChild(th);
 
             $.each(prop, function (key, value) {
-                console.log(key);
-                console.log(value);
+                //console.log(key);
+                //console.log(value);
 
-                var date = new Date (value.Time);
-                console.log(date.toLocaleTimeString());
-                console.log(date.toLocaleDateString());
 
+                //console.log(date.toLocaleDateString());
+                var date = new Date(value.Time);
                 tr = table.insertRow(-1);
                 var tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = date.toLocaleDateString();
@@ -85,6 +86,12 @@
                 divContainer.innerHTML = "";
                 divContainer.appendChild(table);
 
+                //console.log(prop.length)
+                //console.log(key)
+                if (value.ConditionName == 1) {
+                    var date1 = new Date();
+                    console.log(date1.toLocaleTimeString() + `.${date1.getMilliseconds()}`);
+                }
 
             });
 

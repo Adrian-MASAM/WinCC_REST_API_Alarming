@@ -1,15 +1,14 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using OpcLabs.EasyOpc.UA;
+﻿using OpcLabs.EasyOpc.UA;
 using OpcLabs.EasyOpc.UA.AddressSpace;
 using OpcLabs.EasyOpc.UA.OperationModel;
-using WinCC_REST_API.Models;
-using WinCC_REST_API.Global;
 using Serilog;
-using Swashbuckle.Swagger.Annotations;
-using System.Collections.Generic;
 using Swashbuckle.Examples;
+using Swashbuckle.Swagger.Annotations;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using WinCC_REST_API.Global;
+using WinCC_REST_API.Models;
 
 namespace WinCC_REST_API.Controllers
 {
@@ -36,7 +35,7 @@ namespace WinCC_REST_API.Controllers
 
             if (!ModelState.IsValid)
             {
-                Log.Error("api/ack: Ungültige Daten übermittelt bekommen!");
+                Log.Error("api/ack: Ungültige Daten übermittelt!");
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid Model");
             }
             else

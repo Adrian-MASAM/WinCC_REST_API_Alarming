@@ -1,19 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Web.WebSockets;
+using Newtonsoft.Json;
 using Serilog;
+using Swashbuckle.Examples;
 using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 using System.Web;
+using System.Web.Http;
 using WinCC_REST_API.Global;
 using WinCC_REST_API.Models;
-using System.Threading.Tasks;
-using Microsoft.Web.WebSockets;
-using System.Text;
-using System.Web.Mvc;
-using Swashbuckle.Examples;
 
 namespace WinCC_REST_API.Controllers
 {
@@ -25,7 +22,8 @@ namespace WinCC_REST_API.Controllers
         /// Alle aktuellen Alarme
         /// </summary>
         /// <remarks>
-        /// Mit einem websocket Request können auf diesem Endpoint die Daten bidirektional empfangen werden
+        /// Mit einem websocket Request können auf diesem Endpoint die Daten bidirektional empfangen werden. Es wird dasselbe Datenmodel verwendet, wie bei einem
+        /// HTTP-GET-Request - im JSON Format.
         /// </remarks>
         /// <returns></returns>
         [SwaggerResponseExample(HttpStatusCode.OK, typeof(Alarm_example))]
