@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WinCC_REST_API.SwaggerConfig">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\SwaggerConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Controllers.AckController">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\AckController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Controllers.AlarmController">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\AlarmController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Controllers.WSHandler">
+    <Position X="4.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAQAAAAAAAAAAAAAYAAAAAAAA=</HashCode>
+      <FileName>Controllers\AlarmController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Controllers.ViewController">
+    <Position X="2.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Controllers\ViewController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Global.Init">
+    <Position X="6.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAAAAAAAUAAAACAAAEAAAAAAAAAACAAAAAACAA=</HashCode>
+      <FileName>Global\Init.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Ack">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Ack_example">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\Ack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Alarm">
+    <Position X="11.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoDQqABkAGBQYqxlAQoBINAMAHHCARECAAAQJAQhAQA=</HashCode>
+      <FileName>Models\Alarm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Alarm_example" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\Alarm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Error">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Error.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WinCC_REST_API.Models.Error_example">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Models\Error.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WinCC_REST_API.OPCUA.OPCUA_ConditionClient">
+    <Position X="20.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAQAAAAAAAAAAAAAIAAAQAAQAAAAAAAAAAA=</HashCode>
+      <FileName>OPCUA\OPCUA_ConditionClient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="WinCC_REST_API.Models.Meldestatus">
+    <Position X="15" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAQAAAAAAAIAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\Alarm.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
