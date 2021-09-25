@@ -94,6 +94,13 @@
       <FileName>OPCUA\OPCUA_ConditionClient.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="WinCC_REST_API.WebApiApplication">
+    <Position X="8" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="WinCC_REST_API.Models.Meldestatus">
     <Position X="15" Y="2" Width="1.5" />
     <TypeIdentifier>

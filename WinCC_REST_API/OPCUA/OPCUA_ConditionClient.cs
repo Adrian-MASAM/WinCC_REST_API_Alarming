@@ -28,7 +28,7 @@ namespace WinCC_REST_API.OPCUA
             Init._client.SubscribeEvent(
                 endpointDescriptor,
                 UAObjectIds.Server,
-                1000,
+                1,
                 new UAAttributeFieldCollection
                 {
                     // Select specific fields using standard operand symbols
